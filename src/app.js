@@ -38,7 +38,7 @@ async function displayPokemon() {
         node.style =
           "display: flex; flex-direction: column; width: 256px; border: 1px solid #ef5350; padding: 1em; align-items: center;";
         node.appendChild(spriteImgNode);
-        const spriteTitle = capitalize(key, "_"); 
+        const spriteTitle = capitalize(key, "_");
         node.appendChild(document.createTextNode(spriteTitle));
         spriteContainer.appendChild(node);
         spriteNodes.push(node);
@@ -49,13 +49,17 @@ async function displayPokemon() {
   }
 }
 
-function capitalize(string, delim = null) {
+function capitalize(str, delim = null) {
   if (delim != null) {
-    string.split(delim).map((substr) => {
-      return substr[0].toUpperCase() + substr.slice(1);
-    }).join(" ");
+    const newStr = str
+      .split(delim)
+      .map((substr) => {
+        return substr[0].toUpperCase() + substr.slice(1);
+      })
+      .join(" ");
+    return newStr;
   } else {
-    return string[0].toUpperCase() + string.slice(1);
+    return str[0].toUpperCase() + str.slice(1);
   }
 }
 
