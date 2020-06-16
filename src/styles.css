@@ -7,14 +7,16 @@ body {
 }
 
 .title {
-  font-size: 80px;
+  font-size: 86px;
   font-family: "MuseoModerno", cursive;
   margin: 0;
+  color: #FFCC01;
+  -webkit-text-stroke: 3px #375BA9;
 }
 
 header {
   text-align: center;
-  background-color: red;
+  background-color: #ef5350;
   padding: 1em;
 }
 
@@ -32,4 +34,11 @@ header {
 #search-bar {
   height: 25px;
   width: 256px;
+}
+
+#sprite-container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    padding: 1em;
 }

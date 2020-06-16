@@ -14,7 +14,7 @@ async function getPokemon(name) {
   }
 }
 
-async function searchPokemon() {
+async function displayPokemon() {
   if (spriteNodes.length > 0) {
     spriteNodes.forEach((node) => {
       spriteContainer.removeChild(node);
@@ -22,15 +22,27 @@ async function searchPokemon() {
     spriteNodes = [];
   }
   const pokemon = await getPokemon(searchBar.value);
+
   if (pokemon !== undefined || pokemon !== null) {
     Object.keys(pokemon.sprites).forEach((key) => {
       if (pokemon.sprites[key] !== null) {
-        const node = document.createElement("img");
-        node.src = pokemon.sprites[key];
-
-        spriteNodes.push(node);
-
+        const spriteImgNode = document.createElement("img");
+        spriteImgNode.src = pokemon.sprites[key];
+        spriteImgNode.style = "width: 96px; height: 96px;";
+        // node that holds the sprite and sprite information
+        const node = document.createElement("div");
+        node.style =
+          "display: flex; flex-direction: column; width: 256px; border: 1px solid black; padding: 1em; align-items: center;";
+        node.appendChild(spriteImgNode);
+        const spriteTitle = key
+          .split("_")
+          .map((substr) => {
+            return substr[0].toUpperCase() + substr.slice(1);
+          })
+          .join(" ");
+        node.appendChild(document.createTextNode(spriteTitle));
         spriteContainer.appendChild(node);
+        spriteNodes.push(node);
       }
     });
   } else {
@@ -38,4 +50,4 @@ async function searchPokemon() {
   }
 }
 
-searchButton.addEventListener("click", searchPokemon);
+searchButton.addEventListener("click", displayPokemon);
