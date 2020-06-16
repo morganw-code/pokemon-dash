@@ -11,8 +11,8 @@ body {
   font-size: 86px;
   font-family: "MuseoModerno", cursive;
   margin: 0;
-  color: #FFCC01;
-  -webkit-text-stroke: 3px #375BA9;
+  color: #ffcc01;
+  -webkit-text-stroke: 3px #375ba9;
 }
 
 header {
@@ -38,8 +38,22 @@ header {
 }
 
 #sprite-container {
-    display: flex;
-    flex-direction: row;
-    overflow-x: scroll;
-    padding: 0 1em 1em 1em;
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  padding: 0 1em 1em 1em;
+}
+
+#sprite-holder {
+  display: flex;
+  flex-direction: column;
+  width: 256px;
+  border: 1px solid #ef5350;
+  padding: 1em;
+  align-items: center;
+}
+
+#sprite-img {
+  width: 96px;
+  height: 96px;
 }
