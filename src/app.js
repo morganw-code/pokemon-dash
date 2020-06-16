@@ -1,6 +1,7 @@
 const searchButton = document.querySelector("#search-button");
 const searchBar = document.querySelector("#search-bar");
 const spriteContainer = document.querySelector("#sprite-container");
+const pokemonName = document.querySelector("#pokemon-name");
 let spriteNodes = [];
 
 async function getPokemon(name) {
@@ -24,6 +25,9 @@ async function displayPokemon() {
   const pokemon = await getPokemon(searchBar.value);
 
   if (pokemon !== undefined || pokemon !== null) {
+    spriteContainer.style.visibility = "visible";
+    pokemonName.style.visibility = "visible";
+    pokemonName.innerHTML = capitalize(pokemon.name);
     Object.keys(pokemon.sprites).forEach((key) => {
       if (pokemon.sprites[key] !== null) {
         const spriteImgNode = document.createElement("img");
@@ -32,14 +36,9 @@ async function displayPokemon() {
         // node that holds the sprite and sprite information
         const node = document.createElement("div");
         node.style =
-          "display: flex; flex-direction: column; width: 256px; border: 1px solid black; padding: 1em; align-items: center;";
+          "display: flex; flex-direction: column; width: 256px; border: 1px solid #ef5350; padding: 1em; align-items: center;";
         node.appendChild(spriteImgNode);
-        const spriteTitle = key
-          .split("_")
-          .map((substr) => {
-            return substr[0].toUpperCase() + substr.slice(1);
-          })
-          .join(" ");
+        const spriteTitle = capitalize(key, "_"); 
         node.appendChild(document.createTextNode(spriteTitle));
         spriteContainer.appendChild(node);
         spriteNodes.push(node);
@@ -47,6 +46,16 @@ async function displayPokemon() {
     });
   } else {
     console.log("pokemon was undefined");
+  }
+}
+
+function capitalize(string, delim = null) {
+  if (delim != null) {
+    string.split(delim).map((substr) => {
+      return substr[0].toUpperCase() + substr.slice(1);
+    }).join(" ");
+  } else {
+    return string[0].toUpperCase() + string.slice(1);
   }
 }
 
