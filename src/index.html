@@ -3,25 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <title>Pokémon Dash</title>
-    <link rel="stylesheet" type="text/css" href="./styles.css"/>
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./app.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@800&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@800&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-      <header>
-        <p class="title">Pokémon Dash</p>
-        <nav>
+    <header>
+      <p class="title">Pokémon Dash</p>
+      <nav>
         <div class="flex-nav">
-            <div>
+          <div>
             <button id="random-button">Random</button>
+          </div>
+          <div>
+            <input type="text" id="search-bar" />
+            <button id="search-button">Search</button>
+          </div>
         </div>
-            <div>
-            <input type="text" id="search-bar"/>
-            <button id="search-button">Search</button> </div>
-        </div>
-        </nav>
-      </header>
+      </nav>
+    </header>
     <img src="" id="pokemon-image" />
+    <div id="sprite-container"></div>
   </body>
 </html>
