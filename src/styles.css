@@ -57,3 +57,9 @@ header {
   width: 96px;
   height: 96px;
 }
+
+#stats-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+}

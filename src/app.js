@@ -2,7 +2,9 @@ const searchButton = document.querySelector("#search-button");
 const searchBar = document.querySelector("#search-bar");
 const spriteContainer = document.querySelector("#sprite-container");
 const pokemonName = document.querySelector("#pokemon-name");
+const statsContainer = document.querySelector("#stats-container");
 let spriteNodes = [];
+let statNodes = [];
 
 async function getPokemon(name) {
   try {
@@ -15,15 +17,14 @@ async function getPokemon(name) {
   }
 }
 
-async function displayPokemon() {
-  if (spriteNodes.length > 0) {
-    spriteNodes.forEach((node) => {
-      spriteContainer.removeChild(node);
-    });
-    spriteNodes = [];
-  }
+async function searchPokemon() {
   const pokemon = await getPokemon(searchBar.value);
+  await displayPokemonSprites(pokemon);
+  await displayPokemonStats(pokemon);
+}
 
+async function displayPokemonSprites(pokemon) {
+  destroyChildNodes(spriteContainer, spriteNodes); 
   if (pokemon !== undefined || pokemon !== null) {
     spriteContainer.style.visibility = "visible";
     pokemonName.style.visibility = "visible";
@@ -40,6 +41,7 @@ async function displayPokemon() {
         spriteNode.appendChild(spriteImgNode);
         spriteNode.appendChild(document.createTextNode(spriteTitle));
         spriteContainer.appendChild(spriteNode);
+        // used for cleanup
         spriteNodes.push(spriteNode);
       }
     });
@@ -48,8 +50,31 @@ async function displayPokemon() {
   }
 }
 
+async function displayPokemonStats(pokemon) {
+  destroyChildNodes(statsContainer, statNodes); 
+  statsContainer.style.visibility = "visible";
+  const basicDataNames = ["name", "base_experience", "height", "weight"];
+  basicDataNames.forEach((name) => {
+    const titleNode = document.createElement("h3");
+    const statNode = document.createElement("p");
+    let stat = pokemon[name];
+    // weight is originally in hectograms
+    if (name === "weight") {
+      stat = (stat / 10).toString() + "kg";
+    }
+    titleNode.innerHTML = name.includes("_")
+      ? capitalize(name, "_")
+      : capitalize(name);
+    statNode.innerHTML = stat;
+    statNodes.push(titleNode);
+    statNodes.push(statNode);
+    statsContainer.appendChild(titleNode);
+    statsContainer.appendChild(statNode);
+  });
+}
+
 function capitalize(str, delim = null) {
-  if (delim != null) {
+  if (delim !== null) {
     const newStr = str
       .split(delim)
       .map((substr) => {
@@ -62,4 +87,14 @@ function capitalize(str, delim = null) {
   }
 }
 
-searchButton.addEventListener("click", displayPokemon);
+function destroyChildNodes(parent, list) {
+  if (list.length > 0) {
+    list.forEach((node) => {
+      parent.removeChild(node);
+    });
+
+    list.length = 0;
+  }
+}
+
+searchButton.addEventListener("click", searchPokemon);
