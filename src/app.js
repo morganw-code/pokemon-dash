@@ -5,26 +5,27 @@ const pokemonName = document.querySelector("#pokemon-name");
 const statsContainer = document.querySelector("#stats-container");
 let spriteNodes = [];
 let statNodes = [];
+let pokemon = null;
 
 async function getPokemon(name) {
-  try {
-    const response = await axios.get(
-      `http://pokeapi.co/api/v2/pokemon/${name}`
-    );
-    return response.data;
-  } catch {
-    console.log("something bad happened :(");
-  }
+  await axios
+    .get(`http://pokeapi.co/api/v2/pokemon/${name}`)
+    .then((response) => {
+      pokemon = response.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 async function searchPokemon() {
-  const pokemon = await getPokemon(searchBar.value);
-  await displayPokemonSprites(pokemon);
-  await displayPokemonStats(pokemon);
+  await getPokemon(searchBar.value);
+  displayPokemonSprites(pokemon);
+  displayPokemonStats(pokemon);
 }
 
-async function displayPokemonSprites(pokemon) {
-  destroyChildNodes(spriteContainer, spriteNodes); 
+function displayPokemonSprites(pokemon) {
+  destroyChildNodes(spriteContainer, spriteNodes);
   if (pokemon !== undefined || pokemon !== null) {
     spriteContainer.style.visibility = "visible";
     pokemonName.style.visibility = "visible";
@@ -50,8 +51,8 @@ async function displayPokemonSprites(pokemon) {
   }
 }
 
-async function displayPokemonStats(pokemon) {
-  destroyChildNodes(statsContainer, statNodes); 
+function displayPokemonStats(pokemon) {
+  destroyChildNodes(statsContainer, statNodes);
   statsContainer.style.visibility = "visible";
   const basicDataNames = ["name", "base_experience", "height", "weight"];
   basicDataNames.forEach((name) => {
@@ -87,13 +88,13 @@ function capitalize(str, delim = null) {
   }
 }
 
-function destroyChildNodes(parent, list) {
-  if (list.length > 0) {
-    list.forEach((node) => {
+function destroyChildNodes(parent, nodeList) {
+  if (nodeList.length > 0) {
+    nodeList.forEach((node) => {
       parent.removeChild(node);
     });
 
-    list.length = 0;
+    nodeList.length = 0;
   }
 }
 

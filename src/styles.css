@@ -12,7 +12,7 @@ body {
   font-family: "MuseoModerno", cursive;
   margin: 0;
   color: #ffcc01;
-  -webkit-text-stroke: 3px #375ba9;
+  -webkit-text-stroke: 4px #375ba9;
 }
 
 header {
@@ -40,7 +40,7 @@ header {
 #sprite-container {
   display: flex;
   flex-direction: row;
-  overflow-x: scroll;
+  overflow-x: auto;
   padding: 0 1em 1em 1em;
 }
 
@@ -62,4 +62,5 @@ header {
     display: flex;
     flex-direction: column;
     padding: 1em;
+    border: 1px solid black;
 }
